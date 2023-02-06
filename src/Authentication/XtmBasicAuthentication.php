@@ -10,22 +10,22 @@ use Webmozart\Assert\Assert;
 
 final class XtmBasicAuthentication implements AuthenticationMethodInterface
 {
-    private string $clientId = '';
+    private string $client = '';
 
     public function __construct(
         private HttpClientInterface $httpClient,
     ) {}
 
-    public function forClientId(string $clientId): self
+    public function forClient(string $client): self
     {
-        $this->clientId = $clientId;
+        $this->client = $client;
 
         return $this;
     }
 
     public function getToken(): string
     {
-        Assert::stringNotEmpty($this->clientId);
+        Assert::stringNotEmpty($this->client);
 
         $response = $this->httpClient->request('POST', '');
         $responseData = $response->toArray();

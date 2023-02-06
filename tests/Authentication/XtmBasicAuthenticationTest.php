@@ -22,13 +22,13 @@ final class XtmBasicAuthenticationTest extends TestCase
         $httpClient = new MockHttpClient($mockResponse);
 
         $xtmBasicAuthentication = (new XtmBasicAuthentication($httpClient))
-            ->forClientId('client-id');
+            ->forClient('client-name');
 
         self::assertSame('valid-token', $xtmBasicAuthentication->getToken());
     }  
 
     /** @test */
-    public function should_throw_an_exception_if_there_is_no_client_id(): void
+    public function should_throw_an_exception_if_there_is_no_client_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
