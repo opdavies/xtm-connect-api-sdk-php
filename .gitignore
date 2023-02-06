@@ -1,9 +1,3 @@
 /.phpunit.cache/
 /composer.lock
 /vendor/
-
-# Files generated from build.json
-/Dockerfile
-/phpcs.xml*
-/phpstan.neon*
-/phpunit.xml*
