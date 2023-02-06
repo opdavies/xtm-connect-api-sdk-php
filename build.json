@@ -1,0 +1,31 @@
+{
+  "name": "xtm-connect-sdk-php",
+  "type": "php-library",
+  "php": {
+    "version": "8.1-cli-bullseye"
+  },
+  "dockerfile": {
+    "stages": {
+      "build": {
+        "extends": "base",
+        "packages": [
+          "git",
+          "unzip"
+        ],
+        "commands": [
+          "composer validate --strict",
+          "composer install"
+        ]
+      },
+      "test": {
+        "extends": "base",
+        "commands": [
+          "parallel-lint src --no-progress",
+          "phpcs -vv",
+          "phpstan",
+          "phpunit --testdox"
+        ]
+      }
+    }
+  }
+}

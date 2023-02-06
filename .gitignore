@@ -1,2 +1,5 @@
 /.phpunit.cache/
 /vendor/
+
+# Files generated from build.json
+/Dockerfile
