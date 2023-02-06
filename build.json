@@ -2,7 +2,10 @@
   "name": "xtm-connect-sdk-php",
   "type": "php-library",
   "php": {
-    "version": "8.1-cli-bullseye"
+    "version": "8.1-cli-bullseye",
+    "phpstan": {
+      "level": "max"
+    }
   },
   "dockerfile": {
     "stages": {

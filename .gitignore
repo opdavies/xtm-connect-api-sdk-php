@@ -3,3 +3,4 @@
 
 # Files generated from build.json
 /Dockerfile
+/phpstan.neon*
