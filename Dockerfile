@@ -5,7 +5,26 @@ RUN which composer && composer -V
 
 WORKDIR /app
 
+ENV PATH="${PATH}:/app/vendor/bin"
+
 COPY composer.* ./
+
+################################################################################
+
+FROM base AS build
+
+RUN apt-get update -yqq \
+  && apt-get install -yqq --no-install-recommends \
+    git \
+    unzip
 
 RUN composer validate --strict \
   && composer install
+
+################################################################################
+
+FROM build AS test
+
+COPY . .
+
+RUN phpstan analyze

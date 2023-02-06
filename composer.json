@@ -8,11 +8,18 @@
             "Opdavies\\XtmConnect\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Opdavies\\XtmConnect\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Oliver Davies"
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
 }
