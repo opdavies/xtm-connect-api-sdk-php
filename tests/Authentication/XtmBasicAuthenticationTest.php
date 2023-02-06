@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\Authentication;
 
 use InvalidArgumentException;
+use Opdavies\XtmConnect\Authentication\ValueObject\XtmBasicAuthenticationParameters;
 use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -21,12 +22,16 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
-        $xtmBasicAuthentication = (new XtmBasicAuthentication($httpClient))
-            ->forClient('client-name')
-            ->forUser(123456)
-            ->withPassword('password');
+        $authenticationParameters = new XtmBasicAuthenticationParameters();
+        $authenticationParameters->client = 'company-name';
+        $authenticationParameters->password = 'password';
+        $authenticationParameters->userId = 123456;
 
-        self::assertSame('valid-token', $xtmBasicAuthentication->getToken());
+        $token = (new XtmBasicAuthentication($httpClient))
+            ->withParameters($authenticationParameters)
+            ->getToken();
+
+        self::assertSame('valid-token', $token);
     }  
 
     /** @test */
@@ -41,9 +46,12 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
+        $authenticationParameters = new XtmBasicAuthenticationParameters();
+        $authenticationParameters->password = 'password';
+        $authenticationParameters->userId = 123456;
+
         (new XtmBasicAuthentication($httpClient))
-            ->forUser(12345)
-            ->withPassword('password')
+            ->withParameters($authenticationParameters)
             ->getToken();
     }
 
@@ -59,9 +67,12 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
+        $authenticationParameters = new XtmBasicAuthenticationParameters();
+        $authenticationParameters->client = 'company-name';
+        $authenticationParameters->user = 123456;
+
         (new XtmBasicAuthentication($httpClient))
-            ->forClient('company-name')
-            ->forUser(12345)
+            ->withParameters($authenticationParameters)
             ->getToken();
     }
 
@@ -77,9 +88,12 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
+        $authenticationParameters = new XtmBasicAuthenticationParameters();
+        $authenticationParameters->client = 'company-name';
+        $authenticationParameters->password = 'password';
+
         (new XtmBasicAuthentication($httpClient))
-            ->forClient('company-name')
-            ->withPassword('password')
+            ->withParameters($authenticationParameters)
             ->getToken();
     }
 }
