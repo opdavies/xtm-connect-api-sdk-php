@@ -26,7 +26,7 @@ final class GetStatusOfGeneratedFiles
      * @return array<int, GeneratedFile>
      */
     public function handle(
-        int $projectOrJobId,
+        int $projectId,
         string $fileScope = GeneratedFileScope::JOB,
         string $fileType = GeneratedFileType::TARGET,
     ): array {
@@ -42,24 +42,17 @@ final class GetStatusOfGeneratedFiles
             url: sprintf(
                 '%s/projects/%d/files/status',
                 $this->apiUrl,
-                $projectOrJobId,
+                $projectId,
             )
         );
 
         // TODO: use a serializer?
         return array_map(
-            function (array $item) use ($fileScope): GeneratedFile {
+            function (array $item): GeneratedFile {
                 $generatedFile = new GeneratedFile();
                 $generatedFile->fileId = $item['fileId'];
                 $generatedFile->status = $item['status'];
-
-                if (GeneratedFileScope::JOB === $fileScope) {
-                    $generatedFile->jobId = $item['jobId'];
-                }
-
-                if (GeneratedFileScope::PROJECT === $fileScope) {
-                    $generatedFile->projectId = $item['projectId'];
-                }
+                $generatedFile->projectId = $item['projectId'];
 
                 return $generatedFile;
             },
