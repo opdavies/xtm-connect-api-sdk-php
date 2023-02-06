@@ -5,24 +5,32 @@ declare(strict_types=1);
 namespace Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class GetStatusOfGeneratedFiles {
 
     public function __construct(
-        private $apiUrl,
+        private string $apiUrl,
         private HttpClientInterface $httpClient,
         private AuthenticationMethodInterface $authenticationMethod,
     ) {
     }
 
-    public function handle(int $projectId)
+    /**
+     * @return array<int, array{ fileId: int, projectId: int, status: string }>
+     */
+    public function handle(
+        int $projectId,
+        string $fileScope,
+        string $fileType,
+    ): array
     {
         $response = $this->httpClient->request(
             options: [
                 'query' => [
-                    'fileScope' => 'PROJECT',
-                    'fileType' => 'TARGET',
+                    'fileScope' => $fileScope,
+                    'fileType' => $fileType,
                 ],
                 'headers' => $this->headers(),
             ],

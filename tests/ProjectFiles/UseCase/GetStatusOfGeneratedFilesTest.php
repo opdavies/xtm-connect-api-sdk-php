@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileStatus;
 use Opdavies\XtmConnect\ProjectFiles\UseCase\GetStatusOfGeneratedFiles;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -23,7 +24,7 @@ final class GetStatusOfGeneratedFilesTest extends TestCase
             [
                 'fileId' => 2222,
                 'projectId' => 1111,
-                'status' => 'FINISHED',
+                'status' => GeneratedFileStatus::FINISHED,
             ],
         ];
 
