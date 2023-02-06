@@ -12,6 +12,11 @@ use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Uploads source files for a project.
+ *
+ * Content in the request body has to be multipart/form-data.
+ */
 final class UploadSourceFiles
 {
     public function __construct(

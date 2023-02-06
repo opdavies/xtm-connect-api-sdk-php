@@ -10,6 +10,9 @@ use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileType;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Returns information about the status of generated files.
+ */
 final class GetStatusOfGeneratedFiles
 {
     public function __construct(
