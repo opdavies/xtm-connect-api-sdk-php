@@ -6,6 +6,7 @@ namespace Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
+use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileType;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class GetStatusOfGeneratedFiles {
@@ -22,8 +23,8 @@ final class GetStatusOfGeneratedFiles {
      */
     public function handle(
         int $projectId,
-        string $fileScope,
-        string $fileType,
+        string $fileScope = GeneratedFileScope::JOB,
+        string $fileType = GeneratedFileType::TARGET,
     ): array
     {
         $response = $this->httpClient->request(
