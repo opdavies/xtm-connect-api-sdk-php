@@ -48,6 +48,7 @@ final class UploadSourceFilesTest extends TestCase
 
         $useCase = new UploadSourceFiles(
             authenticationMethod: $mockAuthenticationMethod,
+            apiUrl: 'http://test.com',
             httpClient: $mockHttpClient,
         );
 

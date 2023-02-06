@@ -12,9 +12,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class UploadSourceFiles
 {
-    private const API_BASE_URL = 'https://api-test.xtm-intl.com/project-manager-api-rest';
-
     public function __construct(
+        private $apiUrl,
         private HttpClientInterface $httpClient,
         private AuthenticationMethodInterface $authenticationMethod,
     ) {
@@ -40,15 +39,15 @@ final class UploadSourceFiles
                 'headers' => $this->headers($formData),
             ],
             method: 'POST',
-            url: self::endpointUrl($projectId),
+            url: $this->endpointUrl($projectId),
         );
 
         return (object) $response->toArray();
     }
 
-    private static function endpointUrl(int $projectId): string
+    private function endpointUrl(int $projectId): string
     {
-        return sprintf('%s/%s', self::API_BASE_URL, "projects/${projectId}/files/sources/upload");
+        return sprintf('%s/%s', $this->apiUrl, "projects/${projectId}/files/sources/upload");
     }
 
     /**

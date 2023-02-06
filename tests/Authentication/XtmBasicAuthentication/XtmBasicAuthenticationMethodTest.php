@@ -27,7 +27,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
         $authenticationParameters->password = 'password';
         $authenticationParameters->userId = 123456;
 
-        $token = (new XtmBasicAuthenticationMethod($httpClient))
+        $token = (new XtmBasicAuthenticationMethod('http://test.com', $httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
 
@@ -50,7 +50,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
         $authenticationParameters->password = 'password';
         $authenticationParameters->userId = 123456;
 
-        (new XtmBasicAuthenticationMethod($httpClient))
+        (new XtmBasicAuthenticationMethod('http://test.com', $httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }
@@ -71,7 +71,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
         $authenticationParameters->client = 'company-name';
         $authenticationParameters->userId = 123456;
 
-        (new XtmBasicAuthenticationMethod($httpClient))
+        (new XtmBasicAuthenticationMethod('http://test.com', $httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }
@@ -92,7 +92,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
         $authenticationParameters->client = 'company-name';
         $authenticationParameters->password = 'password';
 
-        (new XtmBasicAuthenticationMethod($httpClient))
+        (new XtmBasicAuthenticationMethod('http://test.com', $httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }

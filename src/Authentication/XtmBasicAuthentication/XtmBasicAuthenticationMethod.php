@@ -11,11 +11,10 @@ use Webmozart\Assert\Assert;
 
 final class XtmBasicAuthenticationMethod implements AuthenticationMethodInterface
 {
-    private const API_BASE_URL = 'https://api-test.xtm-intl.com/project-manager-api-rest';
-
     private XtmBasicAuthenticationParameters $parameters;
 
     public function __construct(
+        private string $apiUrl,
         private HttpClientInterface $httpClient,
     ) {
     }
@@ -34,7 +33,7 @@ final class XtmBasicAuthenticationMethod implements AuthenticationMethodInterfac
     public function getToken(): string
     {
         $endpointPath = 'auth/token';
-        $endpointUrl = sprintf('%s/%s', self::API_BASE_URL, $endpointPath);
+        $endpointUrl = sprintf('%s/%s', $this->apiUrl, $endpointPath);
 
         $response = $this->httpClient->request('POST', $endpointUrl, [
             'json' => [
