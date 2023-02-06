@@ -20,7 +20,7 @@ dockerfile:
         - composer install
 
     test:
-      extends: base
+      extends: build
       commands:
         - parallel-lint src --no-progress
         - phpcs -vv
