@@ -35,7 +35,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
     }  
 
     /** @test */
-    public function should_throw_an_exception_if_there_is_no_client_specified(): void
+    public function should_throw_an_exception_if_no_client_is_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Missing client');
@@ -56,7 +56,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
     }
 
     /** @test */
-    public function should_throw_an_exception_if_there_is_no_password_specified(): void
+    public function should_throw_an_exception_if_no_password_is_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Missing password');
@@ -77,7 +77,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
     }
 
     /** @test */
-    public function should_throw_an_exception_if_there_is_no_user_id_specified(): void
+    public function should_throw_an_exception_if_no_user_id_is_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Missing user ID');
