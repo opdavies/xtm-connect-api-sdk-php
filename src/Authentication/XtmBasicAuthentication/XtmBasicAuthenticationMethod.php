@@ -11,6 +11,7 @@ use Webmozart\Assert\Assert;
 
 final class XtmBasicAuthenticationMethod implements AuthenticationMethodInterface
 {
+    // @phpstan-ignore-next-line
     private XtmBasicAuthenticationParameters $parameters;
 
     public function __construct(

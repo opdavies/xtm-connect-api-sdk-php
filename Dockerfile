@@ -27,4 +27,5 @@ FROM build AS test
 
 COPY . .
 
-RUN phpstan analyze
+RUN phpstan \
+  && phpunit --testdox
