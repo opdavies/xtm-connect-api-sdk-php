@@ -41,12 +41,4 @@ RUN parallel-lint src --no-progress \
 
 
 
-################################################################################
 
-FROM nginx:1 as web
-
-EXPOSE 8080
-
-WORKDIR /app
-
-COPY tools/docker/images/nginx/root /
