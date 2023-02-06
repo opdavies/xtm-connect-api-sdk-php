@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Opdavies\XtmConnect\Authentication;
+namespace Opdavies\XtmConnect\Authentication\XtmBasicAuthentication;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
-use Opdavies\XtmConnect\Authentication\ValueObject\XtmBasicAuthenticationParameters;
+use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthenticationParameters;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Webmozart\Assert\Assert;
 

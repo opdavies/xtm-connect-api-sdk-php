@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Opdavies\XtmConnect\Authentication\ValueObject;
+namespace Opdavies\XtmConnect\Authentication\XtmBasicAuthentication;
 
 /**
  * Parameters needed to authenticate using XTM Basic authentication.

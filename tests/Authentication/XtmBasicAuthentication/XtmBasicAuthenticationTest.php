@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\Authentication;
 
 use InvalidArgumentException;
-use Opdavies\XtmConnect\Authentication\ValueObject\XtmBasicAuthenticationParameters;
-use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication;
+use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthentication;
+use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthenticationParameters;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use PHPUnit\Framework\TestCase;
