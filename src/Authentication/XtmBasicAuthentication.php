@@ -14,6 +14,8 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
 
     private string $password = '';
 
+    private string $user = '';
+
     public function __construct(
         private HttpClientInterface $httpClient,
     ) {}
@@ -25,10 +27,18 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
         return $this;
     }
 
+    public function forUser(string $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     public function getToken(): string
     {
         Assert::stringNotEmpty($this->client);
         Assert::stringNotEmpty($this->password);
+        Assert::stringNotEmpty($this->user);
 
         $response = $this->httpClient->request('POST', '');
         $responseData = $response->toArray();
