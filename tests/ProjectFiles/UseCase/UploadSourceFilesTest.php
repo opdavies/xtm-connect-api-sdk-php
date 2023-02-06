@@ -19,21 +19,23 @@ final class UploadSourceFilesTest extends TestCase
         $mockHttpClient = $this->createMock(HttpClientInterface::class);
         $mockResponse = $this->createMock(ResponseInterface::class);
 
+        $mockResponseData = [
+            'jobs' => [
+                [
+                    'fileName' => 'example.json',
+                    'jobId' => 5678,
+                    'sourceFileId' => 9999,
+                    'sourceLanguage' => 'en_GB',
+                    'targetLanguage' => 'cy_GB',
+                ],
+            ],
+            'name' => 'test',
+            'projectId' => 1234,
+        ];
+
         $mockResponse
             ->method('toArray')
-            ->willReturn([
-                'jobs' => [
-                    [
-                        'fileName' => 'example.json',
-                        'jobId' => 5678,
-                        'sourceFileId' => 9999,
-                        'sourceLanguage' => 'en_GB',
-                        'targetLanguage' => 'cy_GB',
-                    ],
-                ],
-                'name' => 'test',
-                'projectId' => 1234,
-            ]);
+            ->willReturn($mockResponseData);
 
         $mockHttpClient
             ->expects(self::once())
