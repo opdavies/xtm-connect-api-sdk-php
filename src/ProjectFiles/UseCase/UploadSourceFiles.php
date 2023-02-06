@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\Enum\UploadMatchType;
+use Opdavies\XtmConnect\ProjectFiles\Enum\UploadReanalyseProject;
 use Symfony\Component\Mime\Part\AbstractPart;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
@@ -22,13 +24,13 @@ final class UploadSourceFiles
     public function handle(
         string $filePath,
         int $projectId,
-        string $matchType = 'MATCH_NAMES',
-        string $reanalyzeProject = 'NO',
+        string $matchType = UploadMatchType::MATCH_NAMES,
+        string $reanalyseProject = UploadReanalyseProject::NO,
     ): \stdClass {
         $formFields = [
             'files[0].file' => DataPart::fromPath($filePath),
             'matchType' => $matchType,
-            'reanalyzeProject' => $reanalyzeProject,
+            'reanalyseProject' => $reanalyseProject,
         ];
 
         $formData = new FormDataPart($formFields);
