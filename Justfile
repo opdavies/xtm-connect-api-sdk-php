@@ -16,6 +16,12 @@ composer *subcommand:
     --entrypoint composer \
     {{ image_name }} {{ subcommand }}
 
+phpcs *subcommand:
+  docker container run --rm -it \
+    -v $(pwd):/app \
+    --entrypoint phpcs \
+    {{ image_name }} {{ subcommand }}
+
 phpstan *subcommand:
   docker container run --rm -it \
     -v $(pwd):/app \

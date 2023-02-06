@@ -16,7 +16,8 @@ final class XtmBasicAuthenticationMethod implements AuthenticationMethodInterfac
 
     public function __construct(
         private HttpClientInterface $httpClient,
-    ) {}
+    ) {
+    }
 
     public function withParameters(XtmBasicAuthenticationParameters $parameters): self
     {
