@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Opdavies\XtmConnect\Authentication;
 
-use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface as AuthenticationAuthenticationMethodInterface;
+use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class XtmBasicAuthentication implements AuthenticationAuthenticationMethodInterface
+final class XtmBasicAuthentication implements AuthenticationMethodInterface
 {
     public function __construct(
         private HttpClientInterface $httpClient,
