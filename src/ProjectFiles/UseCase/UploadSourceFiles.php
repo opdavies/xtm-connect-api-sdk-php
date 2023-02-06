@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class UploadSourceFiles
 {
     public function __construct(
-        private $apiUrl,
+        private string $apiUrl,
         private HttpClientInterface $httpClient,
         private AuthenticationMethodInterface $authenticationMethod,
     ) {
