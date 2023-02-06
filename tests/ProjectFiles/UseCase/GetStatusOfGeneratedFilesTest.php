@@ -47,10 +47,10 @@ final class GetStatusOfGeneratedFilesTest extends TestCase
             httpClient: $mockHttpClient,
         );
 
-        $useCase->handle(
+        $response = $useCase->handle(
             projectId: 1111,
         );
 
-        self::assertSame(1111, $mockResponseData[0]['projectId']);
+        self::assertSame(1111, $response[0]->projectId);
     }
 }

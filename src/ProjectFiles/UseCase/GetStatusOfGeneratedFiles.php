@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\DataTransferObject\GeneratedFile;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileType;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class GetStatusOfGeneratedFiles {
-
+final class GetStatusOfGeneratedFiles
+{
     public function __construct(
         private string $apiUrl,
         private HttpClientInterface $httpClient,
@@ -19,14 +20,13 @@ final class GetStatusOfGeneratedFiles {
     }
 
     /**
-     * @return array<int, array{ fileId: int, projectId: int, status: string }>
+     * @return array<int, GeneratedFile>
      */
     public function handle(
         int $projectId,
         string $fileScope = GeneratedFileScope::JOB,
         string $fileType = GeneratedFileType::TARGET,
-    ): array
-    {
+    ): array {
         $response = $this->httpClient->request(
             options: [
                 'query' => [
@@ -36,13 +36,25 @@ final class GetStatusOfGeneratedFiles {
                 'headers' => $this->headers(),
             ],
             method: 'GET',
-            url: sprintf('%s/projects/%d/files/status',
+            url: sprintf(
+                '%s/projects/%d/files/status',
                 $this->apiUrl,
                 $projectId,
             )
         );
 
-        return $response->toArray();
+        // TODO: use a serializer?
+        return array_map(
+            function (array $item): GeneratedFile {
+                $generatedFile = new GeneratedFile();
+                $generatedFile->fileId = $item['fileId'];
+                $generatedFile->status = $item['status'];
+                $generatedFile->projectId = $item['projectId'];
+
+                return $generatedFile;
+            },
+            $response->toArray(),
+        );
     }
 
     /**
