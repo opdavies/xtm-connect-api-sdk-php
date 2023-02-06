@@ -14,7 +14,7 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
 
     private string $password = '';
 
-    private string $user = '';
+    private int $userId = 0;
 
     public function __construct(
         private HttpClientInterface $httpClient,
@@ -27,9 +27,9 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
         return $this;
     }
 
-    public function forUser(string $user): self
+    public function forUser(int $userId): self
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
@@ -38,7 +38,7 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
     {
         Assert::stringNotEmpty($this->client, 'Missing client');
         Assert::stringNotEmpty($this->password, 'Missing password');
-        Assert::stringNotEmpty($this->user, 'Missing user ID');
+        Assert::positiveInteger($this->userId, 'Missing user ID');
 
         $response = $this->httpClient->request('POST', '');
         $responseData = $response->toArray();

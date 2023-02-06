@@ -23,7 +23,7 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $xtmBasicAuthentication = (new XtmBasicAuthentication($httpClient))
             ->forClient('client-name')
-            ->forUser('user')
+            ->forUser(123456)
             ->withPassword('password');
 
         self::assertSame('valid-token', $xtmBasicAuthentication->getToken());
@@ -42,7 +42,7 @@ final class XtmBasicAuthenticationTest extends TestCase
         $httpClient = new MockHttpClient($mockResponse);
 
         (new XtmBasicAuthentication($httpClient))
-            ->forUser('user-id')
+            ->forUser(12345)
             ->withPassword('password')
             ->getToken();
     }
@@ -61,7 +61,7 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         (new XtmBasicAuthentication($httpClient))
             ->forClient('company-name')
-            ->forUser('user-id')
+            ->forUser(12345)
             ->getToken();
     }
 
