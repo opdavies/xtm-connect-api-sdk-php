@@ -22,7 +22,8 @@ final class XtmBasicAuthenticationTest extends TestCase
         $httpClient = new MockHttpClient($mockResponse);
 
         $xtmBasicAuthentication = (new XtmBasicAuthentication($httpClient))
-            ->forClient('client-name');
+            ->forClient('client-name')
+            ->withPassword('password');
 
         self::assertSame('valid-token', $xtmBasicAuthentication->getToken());
     }  
@@ -39,5 +40,21 @@ final class XtmBasicAuthenticationTest extends TestCase
         $httpClient = new MockHttpClient($mockResponse);
 
         (new XtmBasicAuthentication($httpClient))->getToken();
+    }
+
+    /** @test */
+    public function should_throw_an_exception_if_there_is_no_password_specified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $expectedResponseData = [];
+        $mockResponseJson = json_encode($expectedResponseData, JSON_THROW_ON_ERROR);
+        $mockResponse = new MockResponse($mockResponseJson, ['http_code' => 400]);
+
+        $httpClient = new MockHttpClient($mockResponse);
+
+        (new XtmBasicAuthentication($httpClient))
+            ->forClient('client-name')
+            ->getToken();
     }
 }
