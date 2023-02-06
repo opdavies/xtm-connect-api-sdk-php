@@ -1,0 +1,18 @@
+{
+    "name": "opdavies/xtm-connect-api-sdk-php",
+    "description": "An SDK for interacting with the XTM Connect REST API.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Opdavies\\XtmConnect\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oliver Davies"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
