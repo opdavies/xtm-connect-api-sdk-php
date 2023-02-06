@@ -26,11 +26,11 @@
         "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.5",
         "symfony/debug": "^4.4",
-        "symfony/var-dumper": "^6.2"
+        "symfony/var-dumper": "^5||^6.2"
     },
     "require": {
-        "symfony/http-client": "^6.2",
-        "symfony/mime": "^6.2",
+        "symfony/http-client": "^5||^6.2",
+        "symfony/mime": "^5||^6.2",
         "webmozart/assert": "^1.11"
     },
     "config": {
