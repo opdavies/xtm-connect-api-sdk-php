@@ -69,7 +69,7 @@ final class XtmBasicAuthenticationMethodTest extends TestCase
 
         $authenticationParameters = new XtmBasicAuthenticationParameters();
         $authenticationParameters->client = 'company-name';
-        $authenticationParameters->user = 123456;
+        $authenticationParameters->userId = 123456;
 
         (new XtmBasicAuthenticationMethod($httpClient))
             ->withParameters($authenticationParameters)
