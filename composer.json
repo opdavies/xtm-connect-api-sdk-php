@@ -21,5 +21,8 @@
     "minimum-stability": "stable",
     "require-dev": {
         "phpunit/phpunit": "^9.5"
+    },
+    "require": {
+        "symfony/http-client": "^6.2"
     }
 }
