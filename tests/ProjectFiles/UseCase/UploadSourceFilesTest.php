@@ -47,8 +47,8 @@ final class UploadSourceFilesTest extends TestCase
             ->willReturn('valid-token');
 
         $useCase = new UploadSourceFiles(
-            authenticationMethod: $mockAuthenticationMethod,
             apiUrl: 'http://test.com',
+            authenticationMethod: $mockAuthenticationMethod,
             httpClient: $mockHttpClient,
         );
 
