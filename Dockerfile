@@ -27,6 +27,7 @@ FROM build AS test
 
 COPY . .
 
-RUN phpcs -vv \
+RUN parallel-lint src \
+  && phpcs -vv \
   && phpstan \
   && phpunit --testdox
