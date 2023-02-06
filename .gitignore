@@ -3,4 +3,5 @@
 
 # Files generated from build.json
 /Dockerfile
+/phpcs.xml*
 /phpstan.neon*
