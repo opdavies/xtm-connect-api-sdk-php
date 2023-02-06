@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileStatus;
 use Opdavies\XtmConnect\ProjectFiles\UseCase\GetStatusOfGeneratedFiles;
 use PHPUnit\Framework\TestCase;
@@ -48,9 +49,52 @@ final class GetStatusOfGeneratedFilesTest extends TestCase
         );
 
         $response = $useCase->handle(
-            projectId: 1111,
+            fileScope: GeneratedFileScope::PROJECT,
+            projectOrJobId: 1111,
         );
 
         self::assertSame(1111, $response[0]->projectId);
+    }
+
+    /** @test */
+    public function should_retrieve_the_generated_files_for_a_job(): void
+    {
+        $mockAuthenticationMethod = $this->createMock(AuthenticationMethodInterface::class);
+        $mockHttpClient = $this->createMock(HttpClientInterface::class);
+        $mockResponse = $this->createMock(ResponseInterface::class);
+
+        $mockResponseData = [
+            [
+                'fileId' => 2222,
+                'jobId' => 1111,
+                'status' => GeneratedFileStatus::FINISHED,
+            ],
+        ];
+
+        $mockResponse
+            ->method('toArray')
+            ->willReturn($mockResponseData);
+
+        $mockHttpClient
+            ->expects(self::once())
+            ->method('request')
+            ->willReturn($mockResponse);
+
+        $mockAuthenticationMethod
+            ->method('getToken')
+            ->willReturn('valid-token');
+
+        $useCase = new GetStatusOfGeneratedFiles(
+            authenticationMethod: $mockAuthenticationMethod,
+            apiUrl: 'http://test.com',
+            httpClient: $mockHttpClient,
+        );
+
+        $response = $useCase->handle(
+            fileScope: GeneratedFileScope::JOB,
+            projectOrJobId: 1111,
+        );
+
+        self::assertSame(1111, $response[0]->jobId);
     }
 }
