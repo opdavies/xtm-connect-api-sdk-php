@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\ProjectFiles\UseCase;
 
 use Opdavies\XtmConnect\Authentication\AuthenticationMethodInterface;
+use Opdavies\XtmConnect\ProjectFiles\DataTransferObject\GeneratedFile;
+use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileScope;
 use Opdavies\XtmConnect\ProjectFiles\Enum\GeneratedFileStatus;
 use Opdavies\XtmConnect\ProjectFiles\UseCase\GetStatusOfGeneratedFiles;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +16,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class GetStatusOfGeneratedFilesTest extends TestCase
 {
     /** @test */
-    public function should_retrieve_the_generated_files_for_a_project(): void
+    public function should_retrieve_all_generated_files_for_a_project(): void
     {
         $mockAuthenticationMethod = $this->createMock(AuthenticationMethodInterface::class);
         $mockHttpClient = $this->createMock(HttpClientInterface::class);
@@ -23,6 +25,7 @@ final class GetStatusOfGeneratedFilesTest extends TestCase
         $mockResponseData = [
             [
                 'fileId' => 2222,
+                'jobId' => 3333,
                 'projectId' => 1111,
                 'status' => GeneratedFileStatus::FINISHED,
             ],
@@ -47,10 +50,30 @@ final class GetStatusOfGeneratedFilesTest extends TestCase
             httpClient: $mockHttpClient,
         );
 
-        $response = $useCase->handle(
+        $files = $useCase->handle(
+            fileScope: GeneratedFileScope::PROJECT,
             projectId: 1111,
         );
 
-        self::assertSame(1111, $response[0]->projectId);
+        self::assertInstanceOf(GeneratedFile::class, $files[0]);
+        self::assertSame(1111, $files[0]->projectId);
+    }
+
+    /** @test */
+    public function should_retrieve_specfic_generated_files_for_a_project(): void
+    {
+        self::markTestIncomplete();
+    }
+
+    /** @test */
+    public function should_retrieve_generated_files_for_a_job_within_a_project(): void
+    {
+        self::markTestIncomplete();
+    }
+
+    /** @test */
+    public function should_retrieve_generated_with_a_specific_target_language_within_a_project(): void
+    {
+        self::markTestIncomplete();
     }
 }
