@@ -36,9 +36,9 @@ final class XtmBasicAuthentication implements AuthenticationMethodInterface
 
     public function getToken(): string
     {
-        Assert::stringNotEmpty($this->client);
-        Assert::stringNotEmpty($this->password);
-        Assert::stringNotEmpty($this->user);
+        Assert::stringNotEmpty($this->client, 'Missing client');
+        Assert::stringNotEmpty($this->password, 'Missing password');
+        Assert::stringNotEmpty($this->user, 'Missing user ID');
 
         $response = $this->httpClient->request('POST', '');
         $responseData = $response->toArray();

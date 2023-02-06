@@ -33,6 +33,7 @@ final class XtmBasicAuthenticationTest extends TestCase
     public function should_throw_an_exception_if_there_is_no_client_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing client');
 
         $expectedResponseData = [];
         $mockResponseJson = json_encode($expectedResponseData, JSON_THROW_ON_ERROR);
@@ -40,13 +41,17 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
-        (new XtmBasicAuthentication($httpClient))->getToken();
+        (new XtmBasicAuthentication($httpClient))
+            ->forUser('user-id')
+            ->withPassword('password')
+            ->getToken();
     }
 
     /** @test */
     public function should_throw_an_exception_if_there_is_no_password_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing password');
 
         $expectedResponseData = [];
         $mockResponseJson = json_encode($expectedResponseData, JSON_THROW_ON_ERROR);
@@ -54,13 +59,17 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
-        (new XtmBasicAuthentication($httpClient))->getToken();
+        (new XtmBasicAuthentication($httpClient))
+            ->forClient('company-name')
+            ->forUser('user-id')
+            ->getToken();
     }
 
     /** @test */
     public function should_throw_an_exception_if_there_is_no_user_id_specified(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing user ID');
 
         $expectedResponseData = [];
         $mockResponseJson = json_encode($expectedResponseData, JSON_THROW_ON_ERROR);
@@ -68,6 +77,9 @@ final class XtmBasicAuthenticationTest extends TestCase
 
         $httpClient = new MockHttpClient($mockResponse);
 
-        (new XtmBasicAuthentication($httpClient))->getToken();
+        (new XtmBasicAuthentication($httpClient))
+            ->forClient('company-name')
+            ->withPassword('password')
+            ->getToken();
     }
 }
