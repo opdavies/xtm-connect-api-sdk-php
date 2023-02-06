@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Opdavies\XtmConnect\Authentication;
 
 use InvalidArgumentException;
-use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthentication;
+use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthenticationMethod;
 use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthenticationParameters;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use PHPUnit\Framework\TestCase;
 
-final class XtmBasicAuthenticationTest extends TestCase
+final class XtmBasicAuthenticationMethodTest extends TestCase
 {
     /** @test */
     public function should_return_a_valid_token(): void
@@ -27,7 +27,7 @@ final class XtmBasicAuthenticationTest extends TestCase
         $authenticationParameters->password = 'password';
         $authenticationParameters->userId = 123456;
 
-        $token = (new XtmBasicAuthentication($httpClient))
+        $token = (new XtmBasicAuthenticationMethod($httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
 
@@ -50,7 +50,7 @@ final class XtmBasicAuthenticationTest extends TestCase
         $authenticationParameters->password = 'password';
         $authenticationParameters->userId = 123456;
 
-        (new XtmBasicAuthentication($httpClient))
+        (new XtmBasicAuthenticationMethod($httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }
@@ -71,7 +71,7 @@ final class XtmBasicAuthenticationTest extends TestCase
         $authenticationParameters->client = 'company-name';
         $authenticationParameters->user = 123456;
 
-        (new XtmBasicAuthentication($httpClient))
+        (new XtmBasicAuthenticationMethod($httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }
@@ -92,7 +92,7 @@ final class XtmBasicAuthenticationTest extends TestCase
         $authenticationParameters->client = 'company-name';
         $authenticationParameters->password = 'password';
 
-        (new XtmBasicAuthentication($httpClient))
+        (new XtmBasicAuthenticationMethod($httpClient))
             ->withParameters($authenticationParameters)
             ->getToken();
     }

@@ -9,7 +9,7 @@ use Opdavies\XtmConnect\Authentication\XtmBasicAuthentication\XtmBasicAuthentica
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Webmozart\Assert\Assert;
 
-final class XtmBasicAuthentication implements AuthenticationMethodInterface
+final class XtmBasicAuthenticationMethod implements AuthenticationMethodInterface
 {
     private XtmBasicAuthenticationParameters $parameters;
 
