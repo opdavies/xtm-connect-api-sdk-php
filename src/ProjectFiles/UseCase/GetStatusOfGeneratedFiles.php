@@ -23,21 +23,16 @@ final class GetStatusOfGeneratedFiles
     }
 
     /**
-     * @param positive-int $projectId
-     * @param array<int, positive-int> $jobIds
-     *
      * @return array<int, GeneratedFile>
      */
     public function handle(
         int $projectId,
         string $fileScope = GeneratedFileScope::JOB,
         string $fileType = GeneratedFileType::TARGET,
-        array $jobIds = [],
     ): array {
         $response = $this->httpClient->request(
             options: [
                 'query' => [
-                    'jobIds' => $jobIds,
                     'fileScope' => $fileScope,
                     'fileType' => $fileType,
                 ],
@@ -53,18 +48,11 @@ final class GetStatusOfGeneratedFiles
 
         // TODO: use a serializer?
         return array_map(
-            function (array $item) use ($fileScope): GeneratedFile {
+            function (array $item): GeneratedFile {
                 $generatedFile = new GeneratedFile();
                 $generatedFile->fileId = $item['fileId'];
                 $generatedFile->status = $item['status'];
-
-                if (GeneratedFileScope::JOB === $fileScope) {
-                    $generatedFile->jobId = $item['jobId'];
-                }
-
-                if (GeneratedFileScope::PROJECT === $fileScope) {
-                    $generatedFile->projectId = $item['projectId'];
-                }
+                $generatedFile->projectId = $item['projectId'];
 
                 return $generatedFile;
             },
